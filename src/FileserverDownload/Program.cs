@@ -4,7 +4,7 @@ namespace FileServerDownload;
 
 public record CommandLineOptions
 {
-    [Option('r', "resource", Required = true, HelpText = "Fileserver resource path.")]
+    [Option('r', "resource-path", Required = true, HelpText = "Fileserver resource path.")]
     public string ResourcePath { get; init; } = "";
 
     [Option('u', "username", Required = true, HelpText = "Fileserver username.")]
@@ -13,7 +13,7 @@ public record CommandLineOptions
     [Option('p', "password", Required = true, HelpText = "Fileserver password.")]
     public string Password { get; init; } = "";
 
-    [Option('f', "filename", Required = true, HelpText = "Fileserver filename prefix.")]
+    [Option('f', "filename-prefix", Required = true, HelpText = "Fileserver filename prefix.")]
     public string FileNamePrefix { get; init; } = "";
 }
 
