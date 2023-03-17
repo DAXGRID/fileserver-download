@@ -58,7 +58,10 @@ internal sealed class FileDownload
         }
         else
         {
-            _logger.LogWarning("Could not find any files.");
+            _logger.LogWarning(
+                "Could not find any files in the {Folder} with the {FilePrefix}.",
+                _setting.ResourcePath,
+                _setting.FileNamePrefix);
         }
     }
 
