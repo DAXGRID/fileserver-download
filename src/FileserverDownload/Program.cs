@@ -1,8 +1,14 @@
-﻿using CommandLine;
+﻿using System.Globalization;
+using CommandLine;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Core;
+using Serilog.Events;
 
 namespace FileServerDownload;
 
-public record CommandLineOptions
+public record Setting
 {
     [Option('r', "resource-path", Required = true, HelpText = "Fileserver resource path.")]
     public string ResourcePath { get; init; } = "";
@@ -22,13 +28,38 @@ internal static class Program
     public static void Main(string[] args)
     {
         Parser.Default
-            .ParseArguments<CommandLineOptions>(args)
-            .WithParsed<CommandLineOptions>(o =>
+            .ParseArguments<Setting>(args)
+            .WithParsed<Setting>(o =>
             {
-                Console.WriteLine($"Url is: '{o.ResourcePath}'");
-                Console.WriteLine($"Username is: '{o.Username}'");
-                Console.WriteLine($"Password is: '{o.Password}'");
-                Console.WriteLine($"File name is: '{o.FileNamePrefix}'");
+                var provider = new ServiceCollection()
+                    .AddLogging(x => x.AddSerilog(GetLogger()))
+                    .AddSingleton<Setting>(o)
+                    .AddSingleton<FileDownload>()
+                    .BuildServiceProvider();
+
+                var logger = provider.GetService<ILoggerFactory>()
+                     !.CreateLogger(nameof(Program));
+
+                try
+                {
+                    provider.GetService<FileDownload>()!.Download();
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError("{Exception}", ex);
+                    throw;
+                }
             });
+    }
+
+    public static Logger GetLogger()
+    {
+        return new LoggerConfiguration()
+            .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+            .MinimumLevel.Override("System", LogEventLevel.Warning)
+            .MinimumLevel.Information()
+            .Enrich.FromLogContext()
+            .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
+            .CreateLogger();
     }
 }
