@@ -12,3 +12,6 @@ dotnet_diagnostic.CA1812.severity = none
 
 # CA2234: We don't care since we most often will use BaseAddress for HttpClient
 dotnet_diagnostic.CA2234.severity = none
+
+# CA1056: Using URI always. We do not always want to use URI's.
+dotnet_diagnostic.CA1056.severity = none

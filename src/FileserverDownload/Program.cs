@@ -10,7 +10,10 @@ namespace FileServerDownload;
 
 public record Setting
 {
-    [Option('r', "resource-path", Required = true, HelpText = "Fileserver resource path.")]
+    [Option('h', "host-url", Required = true, HelpText = "Fileserver host-url, example 'https://fileserver.mydomain.com'.")]
+    public string HostUrl { get; init; } = "";
+
+    [Option('r', "resource-path", Required = true, HelpText = "Fileserver resource path, example '/my-folder-name'")]
     public string ResourcePath { get; init; } = "";
 
     [Option('u', "username", Required = true, HelpText = "Fileserver username.")]
@@ -19,17 +22,20 @@ public record Setting
     [Option('p', "password", Required = true, HelpText = "Fileserver password.")]
     public string Password { get; init; } = "";
 
-    [Option('f', "filename-prefix", Required = true, HelpText = "Fileserver filename prefix.")]
+    [Option('f', "filename-prefix", Required = true, HelpText = "Fileserver filename prefix, example 'my-file-name'.")]
     public string FileNamePrefix { get; init; } = "";
+
+    [Option('o', "local output directory", Required = true, HelpText = "The path to the directory where the file should be saved on the local file-system.")]
+    public string OutputDirectory { get; init; } = "";
 }
 
 internal static class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
-        Parser.Default
+        await Parser.Default
             .ParseArguments<Setting>(args)
-            .WithParsed<Setting>(o =>
+            .WithParsedAsync<Setting>(async o =>
             {
                 var provider = new ServiceCollection()
                     .AddLogging(x => x.AddSerilog(GetLogger()))
@@ -42,14 +48,16 @@ internal static class Program
 
                 try
                 {
-                    provider.GetService<FileDownload>()!.Download();
+                    await provider.GetService<FileDownload>()
+                        !.DownloadAsync()
+                        .ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
                     logger.LogError("{Exception}", ex);
                     throw;
                 }
-            });
+            }).ConfigureAwait(false);
     }
 
     public static Logger GetLogger()
