@@ -4,7 +4,17 @@ Easy way to download files from our file-server.
 
 ## Running
 
-When using Windows, the binary will be named `FileServerDownloader.exe`.
+- `-h`, `--host-url`: specifies the URL of the fileserver host. This option is required and should be followed by the URL of the fileserver host. Example: `-h https://fileserver.mydomain.com`.
+
+- `-r`, `--resource-path`: specifies the path of the resource on the fileserver. This option is required and should be followed by the path of the resource. Example: `-r /my-folder-name`.
+
+- `-u`, `--username`: specifies the username to use when connecting to the fileserver. This option is required and should be followed by the username. Example: `-u myUsername`.
+
+- `-p`, `--password`: specifies the password to use when connecting to the fileserver. This option is required and should be followed by the password. Example: `-p myPassword`.
+
+- `-f`, `--filename-prefix`: specifies the prefix to use when naming the file on the fileserver. This option is required and should be followed by the filename prefix. Example: `-f my-file-name`.
+
+- `-o`, `--local output directory`: specifies the path of the local directory where the file should be saved. This option is required and should be followed by the path of the output directory. Example: `-o C:\MyFolder`.
 
 ```sh
 ./FileServerDownloader \
@@ -15,6 +25,8 @@ When using Windows, the binary will be named `FileServerDownloader.exe`.
     -f "my_file_prefix" \
     -o "/tmp/"
 ```
+
+_Note: When using Windows, the binary will be named `FileServerDownloader.exe`._
 
 ## Build
 
