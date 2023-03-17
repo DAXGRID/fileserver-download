@@ -25,7 +25,7 @@ public record Setting
     [Option('f', "filename-prefix", Required = true, HelpText = "Fileserver filename prefix, example 'my-file-name'.")]
     public string FileNamePrefix { get; init; } = "";
 
-    [Option('o', "local output directory", Required = true, HelpText = "The path to the directory where the file should be saved on the local file-system.")]
+    [Option('o', "output-directory", Required = true, HelpText = "The path to the directory where the file should be saved on the local file-system.")]
     public string OutputDirectory { get; init; } = "";
 }
 
