@@ -14,7 +14,7 @@ Easy way to download files from our file-server.
 
 - `-f`, `--filename-prefix`: specifies the prefix to use when naming the file on the fileserver. This option is required and should be followed by the filename prefix. Example: `-f my-file-name`.
 
-- `-o`, `--local output directory`: specifies the path of the local directory where the file should be saved. This option is required and should be followed by the path of the output directory. Example: `-o C:\MyFolder`.
+- `-o`, `--output-directory`: specifies the path of the local directory where the file should be saved. This option is required and should be followed by the path of the output directory. Example: `-o C:\MyFolder`.
 
 ```sh
 ./FileServerDownloader \
