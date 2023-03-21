@@ -16,14 +16,22 @@ Easy way to download files from our file-server.
 
 - `-o`, `--output-directory`: specifies the path of the local directory where the file should be saved. This option is required and should be followed by the path of the output directory. Example: `-o C:\MyFolder`.
 
+### Linux
+
 ```sh
-./FileServerDownloader \
+./FileserverDownload \
     -h "https://files.mydomain.com" \
     -r "/externalFolderPath" \
     -u "myUsername" \
     -p "myPassword" \
     -f "my_file_prefix" \
     -o "/tmp/"
+```
+
+### Windows
+
+```sh
+FileserverDownload.exe -h "https://files.mydomain.com" -r "/externalFolderPath" -u "myUsername" -p "myPassword" -f "my_file_prefix" -o "c:/temp/"
 ```
 
 _Note: When using Windows, the binary will be named `FileServerDownloader.exe`._
