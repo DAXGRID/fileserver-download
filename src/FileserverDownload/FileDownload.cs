@@ -36,12 +36,10 @@ internal sealed class FileDownload
             _setting.Password,
             new Uri(_setting.HostUrl));
 
-        var newestFile = await
-            GetNewestFileAsync(
-                httpFileServer,
-                _setting.ResourcePath,
-                _setting.FileNamePrefix)
-            .ConfigureAwait(false);
+        var newestFile = await GetNewestFileAsync(
+            httpFileServer, _setting.ResourcePath,
+            _setting.FileNamePrefix
+        ).ConfigureAwait(false);
 
         if (newestFile is not null)
         {
@@ -52,7 +50,11 @@ internal sealed class FileDownload
                 downloadPath,
                 outputPath);
 
-            await DownloadFileAsync(httpFileServer, downloadPath, outputPath).ConfigureAwait(false);
+            await DownloadFileAsync(
+                httpFileServer,
+                downloadPath,
+                outputPath
+            ).ConfigureAwait(false);
 
             _logger.LogInformation("Finished downloading {ResourcePath}.", downloadPath);
         }
@@ -74,7 +76,10 @@ internal sealed class FileDownload
             .DownloadFile(externalPath)
             .ConfigureAwait(false);
 
-        using var fileStream = new FileStream(localFilePath, FileMode.Create, FileAccess.Write);
+        using var fileStream = new FileStream(
+            localFilePath,
+            FileMode.Create,
+            FileAccess.Write);
 
         await foreach (var buffer in fileByteAsyncEnumerable)
         {
