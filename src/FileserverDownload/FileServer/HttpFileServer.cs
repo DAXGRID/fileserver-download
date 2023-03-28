@@ -56,7 +56,7 @@ internal sealed class HttpFileServer
 
         return htmlDocument.DocumentNode
             .Descendants("ul")
-            .Where(x => x.Attributes["class"].Value == "item-list has-deletable")
+            .Where(x => x.Attributes["class"].Value == "item-list")
             .First()
             .Descendants()
             .Where(x => x.Attributes["class"]?.Value == "detail")
