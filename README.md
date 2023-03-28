@@ -34,8 +34,6 @@ Easy way to download files from our file-server.
 FileserverDownload.exe -h "https://files.mydomain.com" -r "/externalFolderPath" -u "myUsername" -p "myPassword" -f "my_file_prefix" -o "c:/temp/"
 ```
 
-_Note: When using Windows, the binary will be named `FileServerDownloader.exe`._
-
 ## Build
 
 ### Build for Windows x64
