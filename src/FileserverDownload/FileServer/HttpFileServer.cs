@@ -47,6 +47,8 @@ internal sealed class HttpFileServer
             .GetAsync(dirPath)
             .ConfigureAwait(false);
 
+        response.EnsureSuccessStatusCode();
+
         var htmlBody = await response.Content
             .ReadAsStringAsync()
             .ConfigureAwait(false);
