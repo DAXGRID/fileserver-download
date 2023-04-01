@@ -1,6 +1,6 @@
 # File-server download
 
-Easy way to download files from our file-server.
+Easy way to download files from our file-server in the OpenFTTH system.
 
 ## Running
 
